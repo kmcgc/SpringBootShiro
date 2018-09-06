@@ -1,5 +1,6 @@
 package com.stark.shiro;
 
+import com.stark.entity.Permission;
 import com.stark.entity.Role;
 import com.stark.entity.User;
 import com.stark.service.UserService;
@@ -38,6 +39,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = (User) principalCollection.getPrimaryPrincipal();
         for (Role role : user.getRoles()) {
             info.addRole(role.getName());
+            for (Permission permission : role.getPermissions()) {
+                info.addStringPermission(permission.getName());
+            }
         }
         return info;
     }

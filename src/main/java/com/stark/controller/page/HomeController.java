@@ -68,8 +68,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/403"}, method = RequestMethod.GET)
-    public String noAuth(Model model) {
+    public String noAuth() {
         return "403";
+    }
+
+    @RequestMapping(value = {"/adduser"}, method = RequestMethod.GET)
+    public String addUser() {
+        return "adduser";
     }
 
 }
