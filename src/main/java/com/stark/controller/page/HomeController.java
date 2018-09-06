@@ -15,6 +15,8 @@ public class HomeController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index() {
+        System.out.println(ShiroUtils.getSubject().isRemembered());
+        System.out.println(ShiroUtils.getSubject().isAuthenticated());
         return "index";
     }
 
