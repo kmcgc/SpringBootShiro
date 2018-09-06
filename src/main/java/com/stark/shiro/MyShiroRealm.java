@@ -1,15 +1,16 @@
 package com.stark.shiro;
 
+import com.stark.entity.Role;
 import com.stark.entity.User;
 import com.stark.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 public class MyShiroRealm extends AuthorizingRealm {
-
 
     /**
      * 用于判断登录信息的方法
@@ -33,6 +34,11 @@ public class MyShiroRealm extends AuthorizingRealm {
      * 这里是用来返回用户权限的方法
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        for (Role role : user.getRoles()) {
+            info.addRole(role.getName());
+        }
+        return info;
     }
 }

@@ -1,5 +1,6 @@
 package com.stark.service;
 
+import com.stark.entity.Role;
 import com.stark.entity.User;
 
 import java.util.HashMap;
@@ -9,8 +10,14 @@ public class UserService {
     private static final Map<String, User> userMap = new HashMap<>();
 
     static {
-        userMap.put("admin1", new User("admin1", "123456"));
-        userMap.put("admin2", new User("admin2", "123456"));
+        userMap.put("user", new User("user", "123456"));
+        userMap.put("admin", new User("admin", "123456"));
+
+        Role userRole = new Role("user");
+        Role adminRole = new Role("admin");
+        userMap.get("user").getRoles().add(userRole);
+        userMap.get("admin").getRoles().add(userRole);
+        userMap.get("admin").getRoles().add(adminRole);
     }
 
     public static User getUserByName(String name) {

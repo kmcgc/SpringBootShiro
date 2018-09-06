@@ -1,5 +1,6 @@
 package com.stark.controller.page;
 
+import com.stark.entity.User;
 import com.stark.shiro.ShiroUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -15,8 +16,6 @@ public class HomeController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index() {
-        System.out.println(ShiroUtils.getSubject().isRemembered());
-        System.out.println(ShiroUtils.getSubject().isAuthenticated());
         return "index";
     }
 
@@ -53,4 +52,24 @@ public class HomeController {
         model.addAttribute("msg", msg);
         return "login";
     }
+
+    @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
+    public String user(Model model) {
+        User user = (User) ShiroUtils.getSubject().getPrincipal();
+        model.addAttribute("user", user);
+        return "user";
+    }
+
+    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    public String admin(Model model) {
+        User user = (User) ShiroUtils.getSubject().getPrincipal();
+        model.addAttribute("user", user);
+        return "admin";
+    }
+
+    @RequestMapping(value = {"/403"}, method = RequestMethod.GET)
+    public String noAuth(Model model) {
+        return "403";
+    }
+
 }

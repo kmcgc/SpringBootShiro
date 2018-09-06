@@ -29,7 +29,7 @@ public class ShiroConfig {
     }
 
     /**
-     *Cookie
+     * Cookie
      */
     @Bean
     public SimpleCookie rememberMeCookie() {
@@ -78,6 +78,9 @@ public class ShiroConfig {
         //rememberMe 登录即可访问
         filterChainDefinitionMap.put("/", "user");
         filterChainDefinitionMap.put("/index", "user");
+        //角色拦截
+        filterChainDefinitionMap.put("/user", "authc,roles[user]");
+        filterChainDefinitionMap.put("/admin", "authc,roles[user,admin]");
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
@@ -86,7 +89,7 @@ public class ShiroConfig {
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
         //未授权界面;
-        //shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
