@@ -23,7 +23,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         String password = String.valueOf(token.getPassword());
         User user = UserService.getUserByName(name);
         if (null == user) {
-            return null;
+            throw new UnknownAccountException();
+        } else if (user.isLocked()) {
+            throw new LockedAccountException();
         } else {
             String credentials = new Sha512Hash(password, user.getSalt()).toString();
             token.setPassword(credentials.toCharArray());

@@ -3,6 +3,7 @@ package com.stark.controller.page;
 import com.stark.entity.User;
 import com.stark.shiro.ShiroUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,8 @@ public class HomeController {
                 msg = "用户名不正确，请重新输入";
             } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
                 msg = "密码错误，请重新输入";
+            } else if (LockedAccountException.class.getName().equals(exception)) {
+                msg = "账号被锁定，请联系管理员";
             } else {
                 msg = "发生未知错误，请联系管理员。";
             }

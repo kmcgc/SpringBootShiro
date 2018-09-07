@@ -21,13 +21,16 @@ public class User implements Serializable {
 
     private String salt;
 
+    private boolean locked;
+
     private Set<Role> roles;
 
-    public User(String username, String password) {
+    public User(String username, String password, boolean locked) {
         this.id = UUID.randomUUID().toString().replace("-", "");
         this.username = username;
         this.salt = getId().substring(0, 6);
         this.password = new Sha512Hash(password, getSalt()).toString();
         this.roles = new HashSet<>();
+        this.locked = locked;
     }
 }
