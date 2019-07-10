@@ -1,12 +1,22 @@
 package com.stark.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class Permission {
+import java.io.Serializable;
+
+public class Permission  implements Serializable {
+
     private String name;
+
+    public Permission(String name) {
+        this.name = name;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

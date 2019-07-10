@@ -1,15 +1,9 @@
 package com.stark.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
 public class Role implements Serializable {
     private String name;
 
@@ -18,5 +12,21 @@ public class Role implements Serializable {
     public Role(String name) {
         this.name = name;
         this.permissions = new HashSet<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 }
